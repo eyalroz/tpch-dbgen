@@ -314,7 +314,7 @@ varsub(int qnum, int vnum, int flags)
 		}
         else        
 		{
-            if (param[vnum] && vnum <= MAX_PARAM)
+            if (vnum <= MAX_PARAM && param[vnum][0] != '\0')
                 fprintf(ofp, "%s", param[vnum]);
             else
 				fprintf(stderr, "Bad parameter request (q: %d, p: %d)\n",
