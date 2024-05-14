@@ -71,8 +71,11 @@ add_executable(qgen
 	src/varsub.c
 )
 
-set_property(TARGET dbgen qgen APPEND PROPERTY C_STANDARD 99)
-set_property(TARGET dbgen qgen APPEND PROPERTY C_EXTENSIONS OFF)
+set_target_properties(dbgen qgen
+	PROPERTIES
+	C_STANDARD 99
+	C_STANDARD_REQUIRED ON
+	C_EXTENSIONS OFF)
 
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
 	set_property(TARGET dbgen qgen APPEND PROPERTY COMPILE_OPTIONS -Wall -Wextra -Wno-missing-field-initializers)
