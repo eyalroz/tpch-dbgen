@@ -1,0 +1,29 @@
+# This starter workflow is for a CMake project running on multiple platforms. There is a different starter workflow if you just want a single platform.
+# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-single-platform.yml
+name: CMake on multiple platforms
+
+on:
+  push:
+    
+  pull_request:
+    
+
+jobs:
+  windows-build:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        generator: ["Visual Studio 17 2022", "MinGW Makefiles"]
+    steps:
+    - uses: actions/checkout@main
+    - if: ${{matrix.generator=='MinGW Makefiles'}}
+      uses: msys2/setup-msys2@v2
+    - run: cmake -G "${{ matrix.generator }}" .
+    - run: cmake --build .
+  ubuntu-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - run: cmake .
+      - run: make
